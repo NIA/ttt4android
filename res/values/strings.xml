@@ -1,3 +1,5 @@
 <resources>
     <string name="updates_list_title">TTT</string>
+    <string name="refresh_button_text">Поехали</string>
+    <string name="io_error">Ошибка ввода-вывода</string>
 </resources>

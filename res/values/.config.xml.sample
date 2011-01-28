@@ -1,0 +1,4 @@
+<resources>
+    <string name="api_key">YourTopSecretApiKey</string>
+    <string name="host">http://ttt.lab9.ru/</string>
+</resources>
