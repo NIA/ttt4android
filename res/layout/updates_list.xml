@@ -9,11 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/refresh_button_text"/>
-    <TextView
-        android:id="@+id/raw_response"
+    <ListView
+        android:id="@+id/updates_list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
-        android:text="default text"/>
+        android:layout_height="fill_parent"/>
 </LinearLayout>
