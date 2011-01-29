@@ -2,6 +2,7 @@ package ru.nia.ttt;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import org.json.JSONArray;
@@ -16,20 +17,26 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Vector;
 
 public class UpdatesList extends Activity {
-    // NB: create your own config.xml with format like in .config.xml.sample
-    // for this to work
-    String mApiKey;
-    String mHost;
+    private String mApiKey;
+    private String mHost;
+
+    private DecimalFormat mHoursFormat = new DecimalFormat("#.##");
+
+    private Vector<Update> mUpdates = new Vector<Update>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updates_list);
 
         // read config
+        // NB: create your own config.xml with format like in .config.xml.sample
+        // for this to work
         mApiKey = getString(R.string.api_key);
         mHost = getString(R.string.host);
 
@@ -56,15 +63,22 @@ public class UpdatesList extends Activity {
                     // parse JSON
                     JSONArray jsonUpdates = new JSONArray(rawJSON.toString());
                     String[] strUpdates = new String[jsonUpdates.length()];
+                    JSONObject jsonObject;
                     for(int i = 0; i < jsonUpdates.length(); ++i) {
-                        strUpdates[i] = jsonUpdates.getJSONObject(i).toString(2);
+                        jsonObject = jsonUpdates.getJSONObject(i);
+                        strUpdates[i] = jsonObject.toString(2);
+                        mUpdates.add(new Update(jsonObject));
                     }
+
                     updatesList.setAdapter(
-                            new ArrayAdapter<String>(UpdatesList.this, R.layout.updates_list_item, strUpdates));
+                            new UpdatesAdapter(UpdatesList.this, R.layout.updates_list_item, mUpdates, mHoursFormat));
                 } catch (IOException e) {
-                    Toast.makeText(UpdatesList.this, R.string.io_error, Toast.LENGTH_SHORT);
+                    Toast.makeText(UpdatesList.this, R.string.io_error, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Toast.makeText(UpdatesList.this, R.string.json_error, Toast.LENGTH_SHORT);
+                    Toast.makeText(UpdatesList.this, R.string.json_error, Toast.LENGTH_SHORT).show();
+                    Log.e("JSON", "JSON error", e);
+                } catch (ParseException e) {
+                    Toast.makeText(UpdatesList.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

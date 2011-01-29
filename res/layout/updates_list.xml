@@ -11,6 +11,10 @@
         android:text="@string/refresh_button_text"/>
     <ListView
         android:id="@+id/updates_list"
+        android:background="#FFFFFF"
+        android:cacheColorHint="#00000000"
+        android:divider="#7D7C7B"
+        android:dividerHeight="1dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
 </LinearLayout>

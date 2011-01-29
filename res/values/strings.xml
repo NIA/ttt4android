@@ -3,4 +3,9 @@
     <string name="refresh_button_text">Поехали</string>
     <string name="io_error">Ошибка ввода-вывода</string>
     <string name="json_error">Ошибка JSON</string>
+    <string name="parse_double_error">Ошибка разбора double</string>
+    <string name="started_at">начал в</string>
+    <string name="and_spent">и потратил</string>
+    <string name="user_prefix">\@</string>
+    <string name="hours"> ч.</string>
 </resources>
